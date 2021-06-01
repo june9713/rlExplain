@@ -1,0 +1,107 @@
+<p data-ke-size="size16">먼저 턴제 롤플레잉 게임을 예시로 설명해보자</p>
+<p data-ke-size="size14"><span style="font-family: GungSeo, serif;"><b>대문자 표기는 집합을 의미하며, 소문자 표기는 원소를 의미한다</b></span></p>
+<p data-ke-size="size14">에이전트 : 행동하고 학습하는 컴퓨터속의 가상의 플레이어</p>
+<p data-ke-size="size16">상태 S : state -&gt; 적과 적의 체력의 집합이다 { (A,100) , (A , 90),.....}</p>
+<p data-ke-size="size16">행동 A : action -&gt; 행동의 집합을 의미 , 공격, 마법 , 방어, 치유</p>
+<p data-ke-size="size16">St : 집합 S 중 시간 t 에서의 s&nbsp;</p>
+<p data-ke-size="size16">At : 집합 S 중 시간 t 에서의 s&nbsp;</p>
+<p data-ke-size="size16">&nbsp;</p>
+<h2 data-ke-size="size26"><b>보상함수 R</b></h2>
+<p data-ke-size="size16">R_a_s = E [ Rt+1 | St = s , At = a]&nbsp;</p>
+<p data-ke-size="size16">--&gt; 읽어 보자.</p>
+<p data-ke-size="size16">상태 s 에서의 a 행동을 했을때의 보상R 은 시간 t+1(다음 턴)에서의 보상들의 기댓값과 같다.</p>
+<p data-ke-size="size16">기댓값이란?&nbsp;</p>
+<p data-ke-size="size16">에이전트가 s 에서 어떤 행동 a 를 했을때 다음 상태에서 받을 보상들의 총합의 평균을 의미한다.</p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">턴제 롤플레잉 게임으로 설명해보자.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;"><b><span style="font-family: GungSeo, serif;">플레이어는</span></b>&nbsp;현재 턴에서 적에게 할수 있는 행동은 공격, 마법, 방어, 치료 네가지 이다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">1.공격을 성공했을때 얻을수 있는 점수는 10점이며, 성공확률은 80% 이다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">2.마법을 성공했을때 얻을수 있는 점수는 30점이며 성공확률은 50%이다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">3.방어를 성공했을때 얻을수 있는 점수는 5점이며 성공확률은 90% 이다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">4.치료를 성공했을때 얻을수 있는 점수는 없다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">그렇다면 이번 턴(t)에서 할수 있는 행동들로 인해 다음 턴(t+1)에서 받을수 있는 보상의 기댓값은 얼마일까?</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">1의 경우 성공확률 80%로 10점을 얻으므로 저 공격을 계속할 경우 평균 8점을 얻는다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">2의 경우 성공확률 50%로 30점을 얻으므로 마법만 계속 사용할 경우 평균 15점을 얻는다</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">3의 경우 마찬가지로 4.5점 평균</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">4는 점수가 없다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">그럼 총 점수의 합은 8+15+4.5 이므로 27.5 점인데, 이 점수는 4가지 경우의 합이므로 평균은 27.5/4 = 6.875 점이 된다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">즉, 플레이어는 이번턴에 어떤 행동을 무한히 무작위로 계속 했을때 얻는 점수의 평균을 구해보면 6.875점이고 기댓값은 6.875 점이 된다.</span></b></span></p>
+<p data-ke-size="size14">&nbsp;</p>
+<p data-ke-size="size16"><span style="font-family: AppleSDGothicNeo-Regular, 'Malgun Gothic', '맑은 고딕', dotum, 돋움, sans-serif;">중요한 점은 위으 E 는 R_a_s 는 s 상태에서 무작위로 행동을 결정했을때의, 즉 각 행동 4가지를 수행할 확률이 각각 25%일때의 기댓값 이라는것</span></p>
+<p data-ke-size="size16">&nbsp;</p>
+<h2 data-ke-size="size26"><b>상태변환 확률 P</b></h2>
+<p data-ke-size="size16"><span style="font-family: AppleSDGothicNeo-Regular, 'Malgun Gothic', '맑은 고딕', dotum, 돋움, sans-serif;">상태변환 확률 P 는 P_a_s_s' = P[ St+1=s' | St = s , At = a] 로 나타낸다.</span></p>
+<p data-ke-size="size16"><span style="font-family: AppleSDGothicNeo-Regular, 'Malgun Gothic', '맑은 고딕', dotum, 돋움, sans-serif;">--&gt; 말로 풀어서 읽어 보자</span></p>
+<p data-ke-size="size16"><span style="font-family: AppleSDGothicNeo-Regular, 'Malgun Gothic', '맑은 고딕', dotum, 돋움, sans-serif;">시간 t 상태 s 에서 행동 a를 했을때, 다음 턴 t+1 에서 s' 으로 상태가 변환될 확률 P</span></p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">이 것은 현재 상태 s 에서 다음 상태 s' 으로 상태가 변환될 확률을 의미한다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;"><span>버튼 1은 공격 2는 마법 3은 방어 4는 치료라고 했을때, 이 게임에서는 어떤 버튼을 누르면 가끔</span></span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;"><span>무작위로 이 동작이 Miss 가 되는 경우가 발생한다. 혹은 Miss 와 함께 다른 동작이 대신 나가기도 한다.</span></span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;"><span>이런 Miss 없이 정상적으로 동작이 될 확률을 P 라고 한다.</span></span></b></span></p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">&nbsp;</p>
+<h2 data-ke-size="size26"><b>감가율, 할인율 r</b></h2>
+<p data-ke-size="size16">할인율은 최단기간내에 유효한 보상을 받게 하기 위한 변수이다. 0에서 1사이의 실수 값을 가지며</p>
+<p data-ke-size="size16">턴이 반복될수록 계속 누적으로 곱해서 시나리오가 길어질수록 받는 보상이 적어지도록 한다.</p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">성공했을때의 보상이 5이고 r 이 0.2, 만약 10번만에 최종보상을 받았다면 0.2^10 = 0.0000001024 이므로</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">5*0.0000001024 = 0.000000512 점을 받게 된다.&nbsp;</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">10턴이 흘렀다는건 미션을 성공해서 점수를 얻기 위해 10번의 시도가 필요했다는 뜻이므로&nbsp;</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">결국 1번에 점수를 얻은것 보다 좋은 방법(정책)이라고 볼수 없다는 것이다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">그러한 점을 점수에 반영하기 위한 변수이다</span></b></span></p>
+<p data-ke-size="size16">&nbsp;</p>
+<h2 data-ke-size="size26"><b>정책 Pi , <span style="color: #202124;">&pi;</span></b></h2>
+<p data-ke-size="size16">정책 pi 는 특정 상태 s 에서 a 라는 행동을 A 라는 행동의 집합에서 꺼내려고 할때 무작위로 꺼내지 않고</p>
+<p data-ke-size="size16">어떤 특정한 규칙이나 확률, 혹은 에이전트가 알고 있는 특별한 비법에 의존하는것을 의미한다.</p>
+<p data-ke-size="size16">정책 -&gt; pi(a|s) = P[ At=a | St = s]</p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">플레이어는 이번 턴에 적A를 무찌르기 위해 다음 행동을 결정 해야 한다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">그런데, 플레이어는 적 A 에게 어떤 행동이 가장 효율적인지 알지 못한다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">그래서 4가지 동작(공,마,방,치) 를 무작위로 하기로 했다. 무작위에 의해 각 동작은 25% 의 확률로 실행했는데</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">무작위를 반복하던 중 플레이어는 적A는 방어, 치료, 마법등을 쓰지 않고 그냥 공격만 계속 하는게 가장</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">적을 빠르게 무찌를수 있다는것을 알게 되었다. 그래서 플레이어는 적 A 를 만나면 이제 공격버튼만 누르기로 하였다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">즉 상태 s= 적A&nbsp; 일때 25% 의 확률로 동작을 하는것 보다 공격100% 를 하는게 가장 좋은 정책이라는걸 플레이어</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">스스로 학습하게 되었다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">플레이어는 다시 던전을 여행하다 적A보다 마법에 약하고, 공격력이 매우 강한 적 B를 만나게 된다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;"> 마찬가지로 플레이어는 적B를 무작위로 공격을 해보았으나 다른 행동보다 마법이 더욱 유효하고</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">또한 적B의 강한 공격력 때문에 잘못하면 체력이 모두 고갈되어 죽을수 있다는것을 알게 되어</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">마법 70% , 치료 15% , 방어15% , 공격 0% 로 행동 했을때 가장 빠르게 적 B 를 제압할수 있다는것을</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">알게 되었다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">즉, 플레이어는 정책 두가지를 학습하였는데, s=적A 일때는 a1(공격) 100% , s=적B 일때는 0,70,15,15 의 확률로</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">행동해야 가장 빨리적을 무찌를수 있다는 것이다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">이로서 플레이어는 무작위 확률 25%가 아닌 어떤 상태마다의 특정 행동을 학습하였다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">이 달라진 확률을 정책이라고 한다.</span></b></span></p>
+<p data-ke-size="size14">&nbsp;</p>
+<h2 data-ke-size="size26"><b>반환값 G</b></h2>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">플레이어는 다양한 정책을 활용하여 적A,적B 를 물리침으로서 게임에 승리하였다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">(감가율 r 을 0.8 이라고 하자)</span></b></span><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;"></span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">적A 를 물리치는데 7턴의 공격이 필요했으며 적A를 승리 후 10의 보상을 얻었다고 가정해보자.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">마찬가지로 적B를 물리치는데&nbsp; 5회의 마법과 3회의 치료가 필요했으며 승리 후 15의 보상을 얻었다고 가정하자.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">반환값 G 는 10+15 = 25 여야 하나, 감가율 때문에 반환값은 더 작아지게 된다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">모든 턴을 나열해 보면</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">적 A</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">0 0 0 0 0 0 10</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">총 7회의 공격 중에 7번째 타격후 최종 승리시에 10의 보상이 발생하였다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">적B</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">0 0 0 0 0 0 0 15</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">총 8회의 공격중 8번째 최종 승리시에만 15의 보상이 발생하였다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">적 A의 경우 10*0.8^(7-1) = 2.62 의 보상을, 적 B는 15*0.8^(8-1)=3.145 의 보상을 받게 된다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">즉 이 시나리오의 경우 10+15 = 25 가 아닌 2.62 + 3.145 = 5.765 의 보상을 받게 된다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">그런데 만약 적 A 를 공격하는데 3번의 불필요한 방어를 행동하여 총 턴수가 10번이 되었다고 하면</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">10*0.8^(10-1) = 1.07 이 되며, 불필요한 행동으로 인해 보상이 2.62 에서 1.07로 줄어들게 된다.</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">즉 플레이어(에이전트) 는 반환값 G가 최대가 되게 하기 위해 항상 최단시간에 보상을 받을수 있는 정책을&nbsp;</span></b></span></p>
+<p data-ke-size="size14"><span style="color: #1a5490;"><b><span style="font-family: GungSeo, serif;">고려 해야 한다.</span></b></span></p>
+<h2 data-ke-size="size26"><b>가치함수 v</b></h2>
+<p data-ke-size="size16">위에 설명한 보상함수가 다음 상태의 보상의 기대값이었다면 가치 함수는 G의 기대값이다.</p>
+<p data-ke-size="size16">즉, 현재 상태에서 어떠한 행동을 했을때 그 행동으로부터 쭉 진행되어 게임이 끝났을때의</p>
+<p data-ke-size="size16">반환값&nbsp; G의 평균 기댓값이다.</p>
+<p data-ke-size="size16">v(s) = E[ Gt | St = s]&nbsp;</p>
+<p data-ke-size="size16">- &gt; E[ R(t+1) + rR(t+2)&nbsp; + r^2R(t+3)........ |St=s]</p>
+<p data-ke-size="size16">-&gt; <span style="color: #ee2323;"><b>E[ R(t+1) + rG(t+1)|St=s]</b></span></p>
+<p data-ke-size="size16">R(t+1) + rR(t+2)&nbsp; + r^2R(t+3)........&nbsp; 는 r만 밖으로 빼면 &nbsp;R(t+1) + rG(t+1) 로 정리가 가능하다</p>
+<p data-ke-size="size16">즉 가치 함수 v(s) 는 E[ R(t+1) + rG(t+1)|St=s] 로 표현할수 있다</p>
+<p data-ke-size="size16">생각해보니, 이 기댓값은 사실, 현재의 상태에서 어떠한 엑션을 하든 크게 달라지지는 않을것 같다.</p>
+<p data-ke-size="size16">왜냐하면 어떠한 엑션을 하든 다음 상태에서부터의 액션은 모두 25%의 확률로 랜덤하게 실행 될것이고</p>
+<p data-ke-size="size16">결과적으로 25%의 랜덤한 실행의 결과를 계속 누적하는것과 같기 때문이다.</p>
+<p data-ke-size="size16">이 가치 함수 v가 달라지려면 반환 G 가 정책 pi 에 의해서 어떤 특정 방향으로 흘러가서&nbsp;</p>
+<p data-ke-size="size16">정책에 의한 시나리오가 랜덤함수의 시나리오와 달라졌을때만 유의미 할것 같다.</p>
+<p data-ke-size="size16">그래서 정책 pi 의 시나리오로 게임을 진행했을때의 가치함수 v 인 v_pi 가 중요한것 같다.</p>
+<p data-ke-size="size16">v_pi(s) = E[ R(t+1) + r<span style="color: #ee2323;">G(t+1)</span>|St=s]&nbsp; = E[ R(t+1) + <span style="color: #ee2323;"><span style="color: #000000;">r</span>v_pi(St+1)</span>|St=s]</p>
+<p data-ke-size="size16">여기서 중요한 것은 G = v(St+1) 이라는 것(...?) 이다.</p>
